@@ -46,4 +46,29 @@ describe("SessionTokenDBAccess test suite", () => {
     ).rejects.toThrow("something went wrong");
     expect(nedbMock.insert).toBeCalledWith(someToken, expect.any(Function));
   });
+
+  test("get token without error", async () => {
+    nedbMock.find.mockImplementationOnce((user: any, cb: any) => {
+      cb(null, []);
+    });
+    const token = await sessionTokenDBAccess.getToken("user");
+    expect(token).toBeUndefined();
+    expect(nedbMock.find).toBeCalledWith(
+      { tokenId: "user" },
+      expect.any(Function)
+    );
+  });
+
+  test("get token with error", async () => {
+    nedbMock.find.mockImplementationOnce((user: any, cb: any) => {
+      cb(new Error("something went wrong"));
+    });
+    await expect(sessionTokenDBAccess.getToken("user")).rejects.toThrow(
+      "something went wrong"
+    );
+    expect(nedbMock.find).toBeCalledWith(
+      { tokenId: "user" },
+      expect.any(Function)
+    );
+  });
 });
