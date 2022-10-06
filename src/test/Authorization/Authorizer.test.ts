@@ -38,7 +38,7 @@ describe("Authorizer test suite", () => {
     password: "password",
   };
 
-  test.only("should return sessionToken for valid credentials", async () => {
+  test("should return sessionToken for valid credentials", async () => {
     jest.spyOn(global.Math, "random").mockReturnValueOnce(0);
     jest.spyOn(global.Date, "now").mockReturnValueOnce(0);
     userCredentialsDBAccessMock.getUserCredential.mockResolvedValueOnce({

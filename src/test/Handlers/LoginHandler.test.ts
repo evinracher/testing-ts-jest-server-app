@@ -57,7 +57,7 @@ describe("LoginHandler test suite", () => {
     expect(responseMock.writeHead).not.toHaveBeenCalled();
   });
 
-  test.only("post request with valid login", async () => {
+  test("post request with valid login", async () => {
     getRequestBodyMock.mockReturnValueOnce({
       username: "someUser",
       password: "pass",
@@ -71,7 +71,7 @@ describe("LoginHandler test suite", () => {
     expect(responseMock.write).toBeCalledWith(JSON.stringify(someSessionToken));
   });
 
-  test.only("post request with invalid login", async () => {
+  test("post request with invalid login", async () => {
     getRequestBodyMock.mockReturnValueOnce({
       username: "someUser",
       password: "pass",
@@ -82,7 +82,7 @@ describe("LoginHandler test suite", () => {
     expect(responseMock.write).toBeCalledWith("wrong username or password");
   });
 
-  test.only("post request with unexpected error", async () => {
+  test("post request with unexpected error", async () => {
     const errorMsg = "Something went wrong";
     getRequestBodyMock.mockRejectedValueOnce(new Error(errorMsg));
     await loginHandler.handleRequest();
