@@ -2,6 +2,12 @@ import { IncomingMessage } from "http";
 import { Utils } from "../../app/Utils/Utils";
 
 describe("Utils test suite", () => {
+  test.only("parse invalid URL", () => {
+    expect(() => {
+      Utils.parseUrl("");
+    }).toThrow("Empty");
+  });
+
   test("getRequestPath valid request", () => {
     const request = {
       url: "http://localhost:8080/login",
